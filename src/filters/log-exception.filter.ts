@@ -1,4 +1,3 @@
-/* eslint-disable prefer-rest-params */
 import {
   ExceptionFilter,
   Catch,
@@ -7,11 +6,10 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { CreateLogDto } from 'src/interfaces/log.interface';
-import { Orm, OrmHandler } from 'src/interfaces/orm.interface';
-import { PrismaHandler } from 'src/orm/prisma';
-import { TypeormHandler } from 'src/orm/typeorm';
-import { getConnectionManager } from 'typeorm';
+import { CreateLogDto } from '../interfaces/log.interface';
+import { Orm, OrmHandler } from '../interfaces/orm.interface';
+import { PrismaHandler } from '../orm/prisma';
+import { TypeormHandler } from '../orm/typeorm';
 
 @Catch()
 export class LogExceptionFilter implements ExceptionFilter {

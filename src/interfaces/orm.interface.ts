@@ -1,4 +1,3 @@
-import { Response } from 'express';
 import { CreateLogDto } from './log.interface';
 
 export type OrmHandler = 'typeorm' | 'prisma';

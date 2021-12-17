@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
-import { CreateLogDto } from 'src/interfaces/log.interface';
-import { Orm } from 'src/interfaces/orm.interface';
+import { CreateLogDto } from '../interfaces/log.interface';
+import { Orm } from '../interfaces/orm.interface';
 
 export class PrismaHandler implements Orm {
   connectionName: string;
