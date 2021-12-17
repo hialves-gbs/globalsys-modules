@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rimraf dist && tsc && npm run copy",
-    "copy": "copy package.json dist && copyfiles prisma/schema.primsa dist",
+    "copy": "copy package.json dist && copyfiles prisma/schema.prisma dist",
     "prisma:generate": "npx prisma generate",
     "predeploy": "npm run build",
     "deploy": "npm publish dist",
