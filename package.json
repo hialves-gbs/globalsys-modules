@@ -6,11 +6,12 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rimraf dist && tsc && copy package.json dist",
-    "copy": "copyfiles prisma/schema.primsa dist",
+    "build": "rimraf dist && tsc && npm run copy",
+    "copy": "copy package.json dist && copyfiles prisma/schema.primsa dist",
+    "prisma:generate": "npx prisma generate",
     "predeploy": "npm run build",
     "deploy": "npm publish dist",
-    "postinstall": "npm run copy"
+    "postinstall": "npm run prisma:generate"
   },
   "keywords": [],
   "author": "Hiago Alves",
