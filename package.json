@@ -9,6 +9,7 @@
     "build": "rimraf dist && tsc && npm run copy",
     "copy": "copy package.json dist && copyfiles prisma/schema.prisma dist",
     "prisma:generate": "npx prisma generate",
+    "postversion": "npm run deploy",
     "predeploy": "npm run build",
     "deploy": "npm publish dist",
     "postinstall": "npm run prisma:generate"
