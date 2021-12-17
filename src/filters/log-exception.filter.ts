@@ -6,21 +6,16 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
+import { integrationOrms } from 'src/config/consts';
 import { CreateLogDto } from '../interfaces/log.interface';
 import { Orm, OrmHandler } from '../interfaces/orm.interface';
-import { PrismaHandler } from '../orm/prisma';
-import { TypeormHandler } from '../orm/typeorm';
 
 @Catch()
 export class LogExceptionFilter implements ExceptionFilter {
   orm: Orm;
 
   constructor(orm: OrmHandler, connectionName: string, tableName: string) {
-    if (orm === 'typeorm') {
-      this.orm = new TypeormHandler(connectionName, tableName);
-    } else if (orm === 'prisma') {
-      this.orm = new PrismaHandler(connectionName, tableName);
-    }
+    this.orm = new integrationOrms[orm](connectionName, tableName);
   }
 
   async catch(exception: Error, host: ArgumentsHost) {
