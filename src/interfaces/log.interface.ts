@@ -1,13 +1,13 @@
-import { IErrorLog } from './error.interface'
+import { IErrorLog } from './error.interface';
 
 export class CreateLogDto {
-  method: string
+  method: string;
 
-  url: string
+  url: string;
 
-  body: JSON
+  body?: JSON;
 
-  error: IErrorLog
+  error?: IErrorLog;
 
-  statusCode: number
+  statusCode: number;
 }

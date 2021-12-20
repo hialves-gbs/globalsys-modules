@@ -10,7 +10,7 @@ import { integrationOrms } from '../config/consts';
 import { CreateLogDto } from '../interfaces/log.interface';
 import { Orm, OrmHandler } from '../interfaces/orm.interface';
 
-@Catch()
+@Catch(HttpException)
 export class LogExceptionFilter implements ExceptionFilter {
   orm: Orm;
 
@@ -39,8 +39,8 @@ export class LogExceptionFilter implements ExceptionFilter {
     const req = ctx.getRequest<Request>();
 
     const data: CreateLogDto = {
-      method: req.method,
-      url: req.originalUrl,
+      method: req?.method || 'UNDEF',
+      url: req?.originalUrl || 'undefined',
       body: req.body,
       error: {
         message: exception.message,
