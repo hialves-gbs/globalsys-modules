@@ -31,7 +31,10 @@ export class LogExceptionFilter implements ExceptionFilter {
       );
     } else {
       statusCode = HttpStatus.INTERNAL_SERVER_ERROR;
-      response = { message: 'Internal server error' };
+      response = {
+        message: 'Internal server error',
+        reason: exception.message,
+      };
     }
 
     const ctx = host.switchToHttp();
