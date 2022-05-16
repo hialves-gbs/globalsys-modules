@@ -4,23 +4,38 @@ import {
   ArgumentsHost,
   HttpException,
   HttpStatus,
+  Logger,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { integrationOrms } from '../config/consts';
 import { CreateLogDto } from '../interfaces/log.interface';
 import { Orm, OrmHandler } from '../interfaces/orm.interface';
 
+interface ConfigLogException {
+  enabledConsoleLog: boolean;
+}
+
 @Catch(Error)
 export class LogExceptionFilter implements ExceptionFilter {
   orm: Orm;
+  private config: ConfigLogException;
 
-  constructor(orm: OrmHandler, connectionName: string, tableName: string) {
+  constructor(
+    orm: OrmHandler,
+    connectionName: string,
+    tableName: string,
+    config?: ConfigLogException,
+  ) {
     this.orm = new integrationOrms[orm](connectionName, tableName);
+    this.config.enabledConsoleLog = config?.enabledConsoleLog || true;
   }
 
   async catch(exception: Error, host: ArgumentsHost) {
     let statusCode = 500;
     let response = {};
+
+    if (this.config.enabledConsoleLog)
+      Logger.log(exception, LogExceptionFilter.name);
 
     if (exception instanceof HttpException) {
       statusCode = exception.getStatus();
