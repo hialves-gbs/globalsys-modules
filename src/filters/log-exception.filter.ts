@@ -35,8 +35,10 @@ export class LogExceptionFilter implements ExceptionFilter {
     let statusCode = 500;
     let response = {};
 
-    if (this.config?.enabledConsoleLog)
+    if (this.config?.enabledConsoleLog) {
       Logger.log(exception, LogExceptionFilter.name);
+      exception?.stack && Logger.log(exception.stack, LogExceptionFilter.name);
+    }
 
     if (exception instanceof HttpException) {
       statusCode = exception.getStatus();
