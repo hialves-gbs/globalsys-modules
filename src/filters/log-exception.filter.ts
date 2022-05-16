@@ -12,7 +12,7 @@ import { CreateLogDto } from '../interfaces/log.interface';
 import { Orm, OrmHandler } from '../interfaces/orm.interface';
 
 interface ConfigLogException {
-  enabledConsoleLog: boolean;
+  enabledConsoleLog?: boolean;
 }
 
 @Catch(Error)
@@ -27,6 +27,7 @@ export class LogExceptionFilter implements ExceptionFilter {
     config?: ConfigLogException,
   ) {
     this.orm = new integrationOrms[orm](connectionName, tableName);
+    this.config = {};
     this.config.enabledConsoleLog = config?.enabledConsoleLog || true;
   }
 
@@ -34,7 +35,7 @@ export class LogExceptionFilter implements ExceptionFilter {
     let statusCode = 500;
     let response = {};
 
-    if (this.config.enabledConsoleLog)
+    if (this.config?.enabledConsoleLog)
       Logger.log(exception, LogExceptionFilter.name);
 
     if (exception instanceof HttpException) {
